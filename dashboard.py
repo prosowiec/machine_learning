@@ -77,12 +77,13 @@ if option == 'RNN':
 
         with st.spinner('Wait for additional symulation chart'):
             pred_data = {'price':[], 'capacity':[]}
-            for cap in range(df['engine_capacity'].min(), df['engine_capacity'].max()+1,200):
+            for cap in range(df['engine_capacity'].min(), df['engine_capacity'].max()+1, 200):
                 pred_data['price'].append(int(dnn_model.predict([production_date,mileage,cap]).flatten()))
-                pred_data["capacity"].append(mil)
+                pred_data["capacity"].append(cap)
             pred_df = pd.DataFrame(data=pred_data)
             fig = px.line(pred_df, x='capacity', y="price",title="Symulated valuation with changing engine capacity")
             st.plotly_chart(fig, use_container_width=True)
+    
 
 if option == 'ABOUT':
     st.write("Machine learning project to calculate and symulate praces of popular car models. \
