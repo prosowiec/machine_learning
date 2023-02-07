@@ -81,7 +81,7 @@ if option == 'RNN':
                 pred_data['price'].append(int(dnn_model.predict([production_date,mileage,engine_capacity]).flatten()))
                 pred_data["capacity"].append(mil)
             pred_df = pd.DataFrame(data=pred_data)
-            fig = px.line(pred_df, x='engine capacity', y="price",title="Symulated valuation with changing engine capacity")
+            fig = px.line(pred_df, x='capacity', y="price",title="Symulated valuation with changing engine capacity")
             st.plotly_chart(fig, use_container_width=True)
 
 if option == 'ABOUT':
