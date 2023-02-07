@@ -26,8 +26,8 @@ dnn_folders = {
 }
 
 cwd = os.getcwd()
-df = pd.read_csv(f'{cwd}\\csv\\{csv_files[choose_model]}.csv', delimiter= ';')
-dnn_model = tf.keras.models.load_model(f'{cwd}\\models\\{dnn_folders[choose_model]}')
+df = pd.read_csv(f'{cwd}/csv/{csv_files[choose_model]}.csv', delimiter= ';')
+dnn_model = tf.keras.models.load_model(f'{cwd}/models/{dnn_folders[choose_model]}')
 
 if option == 'SHOW DATAFRAME':
     price = df[['production_date','price']].copy()
