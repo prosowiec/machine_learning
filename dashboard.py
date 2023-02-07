@@ -77,8 +77,8 @@ if option == 'RNN':
 
         with st.spinner('Wait for additional symulation chart'):
             pred_data = {'price':[], 'capacity':[]}
-            for mil in range(df['engine_capacity'].min(), df['engine_capacity'].max()+1,200):
-                pred_data['price'].append(int(dnn_model.predict([production_date,mileage,engine_capacity]).flatten()))
+            for cap in range(df['engine_capacity'].min(), df['engine_capacity'].max()+1,200):
+                pred_data['price'].append(int(dnn_model.predict([production_date,mileage,cap]).flatten()))
                 pred_data["capacity"].append(mil)
             pred_df = pd.DataFrame(data=pred_data)
             fig = px.line(pred_df, x='capacity', y="price",title="Symulated valuation with changing engine capacity")
