@@ -6,7 +6,7 @@ import os
 
 
 choose_model = st.sidebar.selectbox("Choose_model", ('BMW SERIES 5','BMW SERIES 3','MERCEDES-BENZ S-CLASS','MERCEDES-BENZ E-CLASS','VOLKSWAGEN GOLF'))
-option = st.sidebar.selectbox("Choose option", ('RNN',"SHOW DATAFRAME", 'ABOUT'))
+option = st.sidebar.selectbox("Choose option", ('DNN REGRESSION',"SHOW DATAFRAME", 'ABOUT'))
 st.header(option)
 
 cwd = os.getcwd()
@@ -44,7 +44,7 @@ if option == 'SHOW DATAFRAME':
 
     capacity = df[['production_date','engine_capacity']].copy()
     capacity = df.groupby('engine_capacity')['production_date'].count()
-    fig3 = px.bar(capacity, x=capacity.index, y="production_date",title="Engine capacity count over years")
+    fig3 = px.scatter(capacity, x=capacity.index, y="production_date",size="production_date",title="Engine capacity quantity",size_max=60)
     fig3.update_layout(xaxis_title='engine capacity', yaxis_title='count')
     st.plotly_chart(fig3, use_container_width=True)
 
@@ -56,7 +56,7 @@ if option == 'SHOW DATAFRAME':
 
     st.dataframe(df)
 
-if option == 'RNN':
+if option == 'DNN REGRESSION':
     production_date = st.number_input("Production date(year)",value = 2000, step = 1)
     mileage = st.number_input("Mileage (km)",value = 100000, step = 1000)
     engine_capacity = st.number_input("Engine capacity (cm3)",value = 2000, step = 100)
@@ -90,6 +90,6 @@ if option == 'ABOUT':
         Deep neural network regression models where trained using tensorfolw liblary and visualized using streamlit. \
          \n\n Data in csv files ,that where used in modeling comes from otomoto scraper script, that is avaible in my github repo -  \
          https://github.com/prosowiec/otomoto_scraper.")
-    st.image("images\model.png")
-    st.image("images\loss.png")
+    st.image('images/model.png')
+    st.image('images/loss.png')
     
