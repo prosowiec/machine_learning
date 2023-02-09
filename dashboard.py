@@ -65,23 +65,24 @@ if option == 'DNN REGRESSION':
         test_predictions = int(dnn_model.predict([production_date,mileage,engine_capacity]).flatten())
         st.header(f"{test_predictions} PLN")
 
-        with st.spinner('Wait for additional symulation chart'):
+        with st.spinner('Wait for additional simulation chart'):
             pred_data = {'price':[], 'mileage':[]}
             for mil in range(0, 200000 + mileage, 10000):
                 pred_data['price'].append(int(dnn_model.predict([production_date,mil,engine_capacity]).flatten()))
                 pred_data["mileage"].append(mil)
         
             pred_df = pd.DataFrame(data=pred_data)
-            fig = px.line(pred_df, x='mileage', y="price",title="Symulated valuation with changing mileage")
+            fig = px.line(pred_df, x='mileage', y="price",title="Simulated valuation with changing mileage")
             st.plotly_chart(fig, use_container_width=True)
 
-        with st.spinner('Wait for additional symulation chart'):
+        with st.spinner('Wait for additional simulation chart'):
             pred_data = {'price':[], 'capacity':[]}
-            for cap in range(df['engine_capacity'].min(), df['engine_capacity'].max()+1, 200):
+            df_it = df.drop_duplicates('engine_capacity').sort_values(by=['engine_capacity'])
+            for cap in df_it['engine_capacity']:
                 pred_data['price'].append(int(dnn_model.predict([production_date,mileage,cap]).flatten()))
                 pred_data["capacity"].append(cap)
             pred_df = pd.DataFrame(data=pred_data)
-            fig = px.line(pred_df, x='capacity', y="price",title="Symulated valuation with changing engine capacity")
+            fig = px.line(pred_df, x='capacity', y="price",title="Simulated valuation with changing engine capacity")
             st.plotly_chart(fig, use_container_width=True)
     
 
